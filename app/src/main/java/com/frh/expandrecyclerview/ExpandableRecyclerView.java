@@ -1,6 +1,7 @@
 package com.frh.expandrecyclerview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -374,8 +376,10 @@ public class ExpandableRecyclerView extends RecyclerView
 
     public static class SimpleGroupViewHolder extends GroupViewHolder
     {
-        ImageView expandedIndicator;
-        TextView text;
+        ImageView imageviewGroupExpanded;
+        TextView textviewGroupText;
+        LinearLayout linearExpandable;
+
         private boolean expanded;
 
         public SimpleGroupViewHolder(Context context)
@@ -391,8 +395,9 @@ public class ExpandableRecyclerView extends RecyclerView
 
             itemView.setLayoutParams(params);
 
-            expandedIndicator = (ImageView) itemView.findViewById(R.id.carbon_groupExpandedIndicator);
-            text = (TextView) itemView.findViewById(R.id.carbon_groupText);
+            imageviewGroupExpanded = (ImageView) itemView.findViewById(R.id.imageview_group_expanded);
+            textviewGroupText = (TextView) itemView.findViewById(R.id.textview_group_text);
+            linearExpandable = (LinearLayout) itemView.findViewById(R.id.linear_expandable);
         }
 
         public void expand() {
@@ -402,8 +407,8 @@ public class ExpandableRecyclerView extends RecyclerView
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
-                    ViewHelper.setRotation(expandedIndicator, 180 * (float) (animation.getAnimatedValue()));
-                    expandedIndicator.postInvalidate();
+                    ViewHelper.setRotation(imageviewGroupExpanded, 180 * (float) (animation.getAnimatedValue()));
+                    imageviewGroupExpanded.postInvalidate();
                 }
             });
             animator.start();
@@ -417,8 +422,8 @@ public class ExpandableRecyclerView extends RecyclerView
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
-                    ViewHelper.setRotation(expandedIndicator, 180 * (float) (animation.getAnimatedValue()));
-                    expandedIndicator.postInvalidate();
+                    ViewHelper.setRotation(imageviewGroupExpanded, 180 * (float) (animation.getAnimatedValue()));
+                    imageviewGroupExpanded.postInvalidate();
                 }
             });
             animator.start();
@@ -426,7 +431,7 @@ public class ExpandableRecyclerView extends RecyclerView
         }
 
         public void setExpanded(boolean expanded) {
-            ViewHelper.setRotation(expandedIndicator, expanded ? 180 : 0);
+            ViewHelper.setRotation(imageviewGroupExpanded, expanded ? 180 : 0);
             this.expanded = expanded;
         }
 
@@ -435,12 +440,27 @@ public class ExpandableRecyclerView extends RecyclerView
             return expanded;
         }
 
-        public void setText(String t) {
-            text.setText(t);
+        public void setTextviewGroupText(String t) {
+            textviewGroupText.setText(t);
+        }
+        public void setTextviewGroupTextColor(int color) {
+            textviewGroupText.setTextColor(color);
         }
 
-        public String getText() {
-            return text.getText().toString();
+        public void setTextviewGroupColor(int color) {
+            linearExpandable.getBackground().setTint(color);
+        }
+
+        public  void setStyle(int TextColor , int BackgroundColor ){
+            textviewGroupText.setTextColor(TextColor);
+            linearExpandable.getBackground().setTint(BackgroundColor);
+
+        }
+
+
+
+        public String getTextviewGroupText() {
+            return textviewGroupText.getText().toString();
         }
     }
 
