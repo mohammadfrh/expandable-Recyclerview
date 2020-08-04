@@ -1,11 +1,11 @@
 package com.frh.expandrecyclerview;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -28,17 +28,18 @@ public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<Expand
 
     @Override
     public String getGroupItem(int position) {
-        Log.e("tag", "getGroupItem: " + position );
-        if (position <= DataSample.id.length)
+        Log.e("tag", "getGroupItem: " + position);
+        if (position <= DataSample.id.length) {
+
             return DataSample.titleArray[position];
-        else
+        } else
             return "group :" + position;
     }
 
     @Override
     public String getChildItem(int group, int position) {
 
-            return DataSample.descriptionArray[group];
+        return DataSample.descriptionArray[group];
 
     }
 
@@ -62,7 +63,12 @@ public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<Expand
     @Override
     public void onBindGroupViewHolder(ExpandableRecyclerView.SimpleGroupViewHolder holder, int group) {
         super.onBindGroupViewHolder(holder, group);
-        holder.setText(getGroupItem(group));
+        holder.setTextviewGroupText(getGroupItem(group));
+
+        if (DataSample.type[group].equals(1)) {
+            holder.setStyle((Color.parseColor("#FFFFFF")), Color.parseColor("#608583"));
+        } else
+            holder.setTextviewGroupColor(Color.parseColor("#FFFFFF"));
 
     }
 
@@ -77,7 +83,7 @@ public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<Expand
 
         public ChildViewHolder(View itemView) {
             super(itemView);
-            tv = (TextView) itemView.findViewById(R.id.text);
+            tv = (TextView) itemView.findViewById(R.id.textview_row_items);
         }
     }
 
