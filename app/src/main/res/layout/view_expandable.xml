@@ -1,36 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_expandable"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background_expand_item"
     android:clickable="true"
-    android:id="@+id/linear_expandable"
-    android:orientation="horizontal">
+    android:focusable="true"
+    android:minHeight="60dp"
+    android:orientation="horizontal"
+    tools:ignore="SmallSp">
 
     <ImageView
         android:id="@+id/imageview_group_expanded"
         android:layout_width="@dimen/big_iconsize"
         android:layout_height="@dimen/big_iconsize"
+        android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/extra_margin"
         android:layout_marginEnd="@dimen/extra_margin"
-        android:layout_gravity="center_vertical"
         android:tint="#CCCCCC"
-        app:srcCompat="@drawable/ic_expand_more_24dp" />
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_expand_more_24dp"
+        tools:ignore="VectorDrawableCompat" />
 
-    <TextView
-        android:id="@+id/textview_group_text"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textview_group_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/extra_margin"
+            android:layout_marginEnd="@dimen/extra_margin"
+            android:text="1399/12/12"
+            android:textColor="#919194"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/textview_group_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/extra_margin"
+            android:layout_marginEnd="@dimen/extra_margin"
+            android:text="10:16ق.ظ"
+            android:textColor="#919194"
+            android:textSize="8sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="@dimen/list_item_height"
-        android:layout_marginLeft="@dimen/extra_margin"
+        android:layout_gravity="center"
         android:layout_marginStart="@dimen/extra_margin"
-        android:paddingLeft="@dimen/normal_padding"
-        android:textColor="#000000"
-        android:paddingRight="@dimen/normal_padding"
+        android:layout_marginLeft="@dimen/extra_margin"
         android:layout_weight="1"
-        android:gravity="center_vertical" />
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textview_group_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="start"
+            android:text="test"
+            android:textColor="#000000"
+            android:textSize="12sp" />
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textview_group_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text=" در حال انجام"
+                android:textColor="#919194"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/textview_group_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:text="وضعیت مشاوره:"
+                android:visibility="gone"
+                android:textColor="#FFFFFF"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageview_user"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_profile" />
 
 </LinearLayout>

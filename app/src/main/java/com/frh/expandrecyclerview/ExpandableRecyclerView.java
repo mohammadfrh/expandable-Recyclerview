@@ -2,6 +2,8 @@ package com.frh.expandrecyclerview;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -15,24 +17,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
-public class ExpandableRecyclerView extends RecyclerView
-{
+public class ExpandableRecyclerView extends RecyclerView {
 
 
-    public ExpandableRecyclerView(Context context)
-    {
+    public ExpandableRecyclerView(Context context) {
         super(context, null);
         initRecycler();
     }
 
-    public ExpandableRecyclerView(Context context, AttributeSet attrs)
-    {
+    public ExpandableRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initRecycler();
     }
@@ -42,16 +42,14 @@ public class ExpandableRecyclerView extends RecyclerView
         initRecycler();
     }
 
-    private void initRecycler()
-    {
+    private void initRecycler() {
         setClipToPadding(false);
         setItemAnimator(new DefaultItemAnimator());
 
     }
 
     @Override
-    public Parcelable onSaveInstanceState()
-    {
+    public Parcelable onSaveInstanceState() {
         //begin boilerplate code that allows parent classes to save state
         Parcelable superState = super.onSaveInstanceState();
 
@@ -82,9 +80,9 @@ public class ExpandableRecyclerView extends RecyclerView
             ((Adapter) getAdapter()).setExpandedGroups(ss.stateToSave);
     }
 
-    static class SavedState implements Parcelable
-    {
-        public static final SavedState EMPTY_STATE = new SavedState() {};
+    static class SavedState implements Parcelable {
+        public static final SavedState EMPTY_STATE = new SavedState() {
+        };
 
         SparseBooleanArray stateToSave;
         Parcelable superState;
@@ -97,8 +95,7 @@ public class ExpandableRecyclerView extends RecyclerView
             this.superState = superState != EMPTY_STATE ? superState : null;
         }
 
-        private SavedState(Parcel in)
-        {
+        private SavedState(Parcel in) {
             Parcelable superState = in.readParcelable(ExpandableRecyclerView.class.getClassLoader());
             this.superState = superState != null ? superState : EMPTY_STATE;
             this.stateToSave = in.readSparseBooleanArray();
@@ -111,8 +108,7 @@ public class ExpandableRecyclerView extends RecyclerView
 
 
         @Override
-        public void writeToParcel(@NonNull Parcel out, int flags)
-        {
+        public void writeToParcel(@NonNull Parcel out, int flags) {
             out.writeParcelable(superState, flags);
             out.writeSparseBooleanArray(this.stateToSave);
         }
@@ -123,10 +119,8 @@ public class ExpandableRecyclerView extends RecyclerView
 
         //required field that makes Parcelables from a Parcel
         public static final Creator<SavedState> CREATOR =
-                new Creator<SavedState>()
-                {
-                    public SavedState createFromParcel(Parcel in)
-                    {
+                new Creator<SavedState>() {
+                    public SavedState createFromParcel(Parcel in) {
                         return new SavedState(in);
                     }
 
@@ -137,18 +131,15 @@ public class ExpandableRecyclerView extends RecyclerView
     }
 
 
-
     @Override
-    public void setAdapter(RecyclerView.Adapter adapter)
-    {
+    public void setAdapter(RecyclerView.Adapter adapter) {
         if (!(adapter instanceof Adapter))
             throw new IllegalArgumentException("adapter has to be of type ExpandableRecyclerView.Adapter");
         super.setAdapter(adapter);
     }
 
 
-    public static abstract class Adapter<CVH extends ViewHolder, GVH extends ViewHolder, C, G> extends RecyclerView.Adapter<ViewHolder>
-    {
+    public static abstract class Adapter<CVH extends ViewHolder, GVH extends ViewHolder, C, G> extends RecyclerView.Adapter<ViewHolder> {
 
         private OnChildItemClickedListener onChildItemClickedListener;
 
@@ -167,20 +158,17 @@ public class ExpandableRecyclerView extends RecyclerView
             return expanded;
         }
 
-        public void setExpandedGroups(SparseBooleanArray expanded)
-        {
+        public void setExpandedGroups(SparseBooleanArray expanded) {
             this.expanded = expanded;
         }
 
-        public void expand(int group)
-        {
+        public void expand(int group) {
             if (isExpanded(group))
                 return;
 
             // this lines of code calculate number of shown item in recycler view. also group is counting .
             int position = 0;
-            for (int i = 0; i < group; i++)
-            {
+            for (int i = 0; i < group; i++) {
                 position++;
                 if (isExpanded(i))
                     position += getChildItemCount(i);
@@ -191,14 +179,12 @@ public class ExpandableRecyclerView extends RecyclerView
             expanded.put(group, true); // save expanding in sparce array
         }
 
-        public void collapse(int group)
-        {
+        public void collapse(int group) {
             if (!isExpanded(group)) // if is not expanded . so nothing to collapse.
                 return;
 
             int position = 0;
-            for (int i = 0; i < group; i++)
-            {
+            for (int i = 0; i < group; i++) {
                 position++;
                 if (isExpanded(i))
                     position += getChildItemCount(i); // item
@@ -213,11 +199,9 @@ public class ExpandableRecyclerView extends RecyclerView
         public abstract int getChildItemCount(int group);
 
         @Override
-        public int getItemCount()
-        {
+        public int getItemCount() {
             int count = 0;
-            for (int i = 0; i <= getGroupItemCount(); i++)
-            {
+            for (int i = 0; i <= getGroupItemCount(); i++) {
                 count += isExpanded(i) ? getChildItemCount(i) + 1 : 1;
             }
             return count;
@@ -227,11 +211,9 @@ public class ExpandableRecyclerView extends RecyclerView
 
         public abstract C getChildItem(int group, int position);
 
-        public Object getItem(int i)
-        {
+        public Object getItem(int i) {
             int group = 0;
-            while (group <= getGroupItemCount())
-            {
+            while (group <= getGroupItemCount()) {
                 if (i > 0 && !isExpanded(group)) {
                     i--;
                     group++;
@@ -253,19 +235,15 @@ public class ExpandableRecyclerView extends RecyclerView
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int i)
-        {
+        public void onBindViewHolder(ViewHolder holder, int i) {
             int group = 0;
-            while (group <= getGroupItemCount())
-            {
-                if (i > 0 && !isExpanded(group))
-                {
+            while (group <= getGroupItemCount()) {
+                if (i > 0 && !isExpanded(group)) {
                     i--;
                     group++;
                     continue;
                 }
-                if (i > 0 && isExpanded(group))
-                {
+                if (i > 0 && isExpanded(group)) {
                     i--;
                     if (i < getChildItemCount(group)) {
                         onBindChildViewHolder((CVH) holder, group, i);
@@ -284,8 +262,7 @@ public class ExpandableRecyclerView extends RecyclerView
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-        {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return viewType == TYPE_HEADER ? onCreateGroupViewHolder(parent) : onCreateChildViewHolder(parent, viewType);
         }
 
@@ -296,8 +273,7 @@ public class ExpandableRecyclerView extends RecyclerView
         public abstract int getChildItemViewType(int group, int position);
 
         @Override
-        public int getItemViewType(int i)
-        {
+        public int getItemViewType(int i) {
             int group = 0;
             while (group <= getGroupItemCount()) {
                 if (i > 0 && !isExpanded(group)) {
@@ -319,17 +295,14 @@ public class ExpandableRecyclerView extends RecyclerView
             throw new IndexOutOfBoundsException();
         }
 
-        public void setOnChildItemClickedListener(OnChildItemClickedListener onItemClickedListener)
-        {
+        public void setOnChildItemClickedListener(OnChildItemClickedListener onItemClickedListener) {
             this.onChildItemClickedListener = onItemClickedListener;
         }
 
         public void onBindChildViewHolder(CVH holder, final int group, final int position) {
-            holder.itemView.setOnClickListener(new OnClickListener()
-            {
+            holder.itemView.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
-                    if (Adapter.this.onChildItemClickedListener != null)
-                    {
+                    if (Adapter.this.onChildItemClickedListener != null) {
                         Adapter.this.onChildItemClickedListener.onChildItemClicked(group, position);
                     }
 
@@ -337,8 +310,7 @@ public class ExpandableRecyclerView extends RecyclerView
             });
         }
 
-        public void onBindGroupViewHolder(final GVH holder, final int group)
-        {
+        public void onBindGroupViewHolder(final GVH holder, final int group) {
             if (holder instanceof GroupViewHolder)
                 ((GroupViewHolder) holder).setExpanded(isExpanded(group));
 
@@ -359,8 +331,7 @@ public class ExpandableRecyclerView extends RecyclerView
         }
     }
 
-    public static abstract class GroupViewHolder extends RecyclerView.ViewHolder
-    {
+    public static abstract class GroupViewHolder extends RecyclerView.ViewHolder {
 
         public GroupViewHolder(View itemView) {
             super(itemView);
@@ -375,16 +346,21 @@ public class ExpandableRecyclerView extends RecyclerView
         public abstract boolean isExpanded();
     }
 
-    public static class SimpleGroupViewHolder extends GroupViewHolder
-    {
+    public static class SimpleGroupViewHolder extends GroupViewHolder {
         ImageView imageviewGroupExpanded;
         TextView textviewGroupText;
         LinearLayout linearExpandable;
 
+        TextView textview_group_date;
+        TextView textview_group_time;
+        TextView textview_group_description;
+        TextView textview_group_state;
+        ImageView imageview_user;
+
+
         private boolean expanded;
 
-        public SimpleGroupViewHolder(Context context)
-        {
+        public SimpleGroupViewHolder(Context context) {
             super(View.inflate(context, R.layout.view_expandable, null));
 
 
@@ -399,6 +375,12 @@ public class ExpandableRecyclerView extends RecyclerView
             imageviewGroupExpanded = (ImageView) itemView.findViewById(R.id.imageview_group_expanded);
             textviewGroupText = (TextView) itemView.findViewById(R.id.textview_group_text);
             linearExpandable = (LinearLayout) itemView.findViewById(R.id.linear_expandable);
+            textview_group_date = itemView.findViewById(R.id.textview_group_date);
+            textview_group_time = itemView.findViewById(R.id.textview_group_time);
+            textview_group_description = itemView.findViewById(R.id.textview_group_description);
+            textview_group_state = itemView.findViewById(R.id.textview_group_state);
+            imageview_user = itemView.findViewById(R.id.imageview_user);
+
         }
 
         public void expand() {
@@ -444,6 +426,7 @@ public class ExpandableRecyclerView extends RecyclerView
         public void setTextviewGroupText(String t) {
             textviewGroupText.setText(t);
         }
+
         public void setTextviewGroupTextColor(int color) {
             textviewGroupText.setTextColor(color);
         }
@@ -454,14 +437,38 @@ public class ExpandableRecyclerView extends RecyclerView
             }
         }
 
-        public  void setStyle(int TextColor , int BackgroundColor ){
-            textviewGroupText.setTextColor(TextColor);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                linearExpandable.getBackground().setTint(BackgroundColor);
+        public void setStyle(int GroupTitleColor, int BackgroundDrawable, Boolean showState, int DescriptionColor , int DateColor ,int Timecolor ) {
+            textviewGroupText.setTextColor(GroupTitleColor);
+            linearExpandable.setBackgroundResource(BackgroundDrawable);
+            if (showState = true) {
+                textview_group_state.setVisibility(VISIBLE);
             }
+            textview_group_description.setTextColor(DescriptionColor);
+            textview_group_date.setTextColor(DateColor);
+            textview_group_time.setTextColor(Timecolor);
+
 
         }
 
+        public void settextviewGroupDate(String Datevalue) {
+            textview_group_date.setText(Datevalue);
+        }
+
+        public void settextviewGroupTime(String Timevalue) {
+            textview_group_time.setText(Timevalue);
+        }
+
+        public void settextviewGroupDescription(String Desciptionvalue) {
+            textview_group_description.setText(Desciptionvalue);
+        }
+
+        public void settextviewGroupState(String Statevalue) {
+            textview_group_state.setText(Statevalue);
+        }
+
+        public void setimageviewUser(int User) {
+            imageview_user.setBackgroundResource(User);
+        }
 
 
         public String getTextviewGroupText() {

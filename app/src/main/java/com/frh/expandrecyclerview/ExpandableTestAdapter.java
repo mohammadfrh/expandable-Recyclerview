@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -64,12 +65,19 @@ public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<Expand
     public void onBindGroupViewHolder(ExpandableRecyclerView.SimpleGroupViewHolder holder, int group) {
         super.onBindGroupViewHolder(holder, group);
         holder.setTextviewGroupText(getGroupItem(group));
+        holder.setimageviewUser(DataSample.drawableArray[group]);
+        holder.settextviewGroupDescription(DataSample.stateArray[group]);
 
         if (DataSample.type[group].equals(1)) {
-            holder.setStyle((Color.parseColor("#FFFFFF")), Color.parseColor("#608583"));
-        } else
-            holder.setTextviewGroupColor(Color.parseColor("#FFFFFF"));
+            holder.setStyle((Color.parseColor("#FFFFFF")),
+                    R.drawable.background_list_selected_messages,
+                    true,
+                    Color.parseColor("#FFFFFF"),
+                    Color.parseColor("#FFFFFF"),
+                    Color.parseColor("#FFFFFF")
+            );
 
+        }
     }
 
     @Override
