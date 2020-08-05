@@ -2,8 +2,6 @@ package com.frh.expandrecyclerview;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.opengl.Visibility;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -17,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -350,13 +347,12 @@ public class ExpandableRecyclerView extends RecyclerView {
         ImageView imageviewGroupExpanded;
         TextView textviewGroupText;
         LinearLayout linearExpandable;
-
-        TextView textview_group_date;
-        TextView textview_group_time;
-        TextView textview_group_description;
-        TextView textview_group_state;
-        ImageView imageview_user;
-
+        TextView textviewGroupDate;
+        TextView textviewGroupTime;
+        TextView textviewGroupDescription;
+        TextView textviewGroupState;
+        TextView textviewGroupType;
+        ImageView imageviewUser;
 
         private boolean expanded;
 
@@ -372,14 +368,16 @@ public class ExpandableRecyclerView extends RecyclerView {
 
             itemView.setLayoutParams(params);
 
-            imageviewGroupExpanded = (ImageView) itemView.findViewById(R.id.imageview_group_expanded);
-            textviewGroupText = (TextView) itemView.findViewById(R.id.textview_group_text);
-            linearExpandable = (LinearLayout) itemView.findViewById(R.id.linear_expandable);
-            textview_group_date = itemView.findViewById(R.id.textview_group_date);
-            textview_group_time = itemView.findViewById(R.id.textview_group_time);
-            textview_group_description = itemView.findViewById(R.id.textview_group_description);
-            textview_group_state = itemView.findViewById(R.id.textview_group_state);
-            imageview_user = itemView.findViewById(R.id.imageview_user);
+            imageviewGroupExpanded = itemView.findViewById(R.id.imageview_group_expanded);
+            textviewGroupText = itemView.findViewById(R.id.textview_group_text);
+            linearExpandable = itemView.findViewById(R.id.linear_expandable);
+            textviewGroupDate = itemView.findViewById(R.id.textview_group_date);
+            textviewGroupTime = itemView.findViewById(R.id.textview_group_time);
+            textviewGroupDescription = itemView.findViewById(R.id.textview_group_description);
+            textviewGroupState = itemView.findViewById(R.id.textview_group_state);
+            imageviewUser = itemView.findViewById(R.id.imageview_user);
+            textviewGroupType = itemView.findViewById(R.id.textview_group_type);
+
 
         }
 
@@ -437,39 +435,53 @@ public class ExpandableRecyclerView extends RecyclerView {
             }
         }
 
-        public void setStyle(int GroupTitleColor, int BackgroundDrawable, Boolean showState, int DescriptionColor , int DateColor ,int Timecolor ) {
-            textviewGroupText.setTextColor(GroupTitleColor);
-            linearExpandable.setBackgroundResource(BackgroundDrawable);
-            if (showState = true) {
-                textview_group_state.setVisibility(VISIBLE);
-            }
-            textview_group_description.setTextColor(DescriptionColor);
-            textview_group_date.setTextColor(DateColor);
-            textview_group_time.setTextColor(Timecolor);
-
-
-        }
-
         public void settextviewGroupDate(String Datevalue) {
-            textview_group_date.setText(Datevalue);
+            textviewGroupDate.setText(Datevalue);
         }
 
         public void settextviewGroupTime(String Timevalue) {
-            textview_group_time.setText(Timevalue);
+            textviewGroupTime.setText(Timevalue);
         }
 
         public void settextviewGroupDescription(String Desciptionvalue) {
-            textview_group_description.setText(Desciptionvalue);
+            textviewGroupDescription.setText(Desciptionvalue);
         }
 
         public void settextviewGroupState(String Statevalue) {
-            textview_group_state.setText(Statevalue);
+            textviewGroupState.setText(Statevalue);
+        }
+
+        public void setEnum(EnumType type) {
+
+            switch (type) {
+                case LISTMASSAGES:
+                    textviewGroupState.setVisibility(VISIBLE);
+                    textviewGroupType.setVisibility(GONE);
+                    textviewGroupState.setText("وضعیت مشاوره:");
+                    textviewGroupState.setTextColor(Color.parseColor("#FFFFFF"));
+                    linearExpandable.setBackgroundResource(R.drawable.background_list_selected_messages);
+                    textviewGroupDescription.setTextColor(Color.parseColor("#FFFFFF"));
+                    textviewGroupDate.setTextColor(Color.parseColor("#FFFFFF"));
+                    textviewGroupTime.setTextColor(Color.parseColor("#FFFFFF"));
+                    textviewGroupText.setTextColor(Color.parseColor("#FFFFFF"));
+                    break;
+
+                case LISTTRANSACTION:
+                    textviewGroupState.setVisibility(VISIBLE);
+                    textviewGroupType.setVisibility(VISIBLE);
+                    textviewGroupDescription.setTextColor(Color.parseColor("#43756A"));
+                    textviewGroupDescription.setTextSize(14);
+                    textviewGroupState.setTextColor(Color.parseColor("#43756A"));
+                    textviewGroupState.setText("مبلغ:");
+                    linearExpandable.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    break;
+
+            }
         }
 
         public void setimageviewUser(int User) {
-            imageview_user.setBackgroundResource(User);
+            imageviewUser.setBackgroundResource(User);
         }
-
 
         public String getTextviewGroupText() {
             return textviewGroupText.getText().toString();
@@ -479,5 +491,4 @@ public class ExpandableRecyclerView extends RecyclerView {
     public interface OnChildItemClickedListener {
         void onChildItemClicked(int group, int position);
     }
-
 }

@@ -9,8 +9,31 @@
     <com.frh.expandrecyclerview.ExpandableRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="500dp"
         android:layout_margin="20dp"
         android:clipToPadding="false" />
+
+    <RadioGroup
+        android:id="@+id/radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/radioMassages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="List Massages"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radioTransaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="List transaction" />
+
+    </RadioGroup>
+    
+    
+    
 
 </LinearLayout>
