@@ -1,17 +1,10 @@
 package com.frh.expandrecyclerview;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         final ExpandableRecyclerView recyclerView = findViewById(R.id.recyclerView);
         assert recyclerView != null;
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        final ExpandableTestAdapter testAdapter = new ExpandableTestAdapter(EnumType.LISTMASSAGES, EnumType.LISTMASSAGES);
+        final ExpandableTestAdapter testAdapter = new ExpandableTestAdapter(EnumType.LISTMASSAGES_NOT_READ, EnumType.LISTMASSAGES_NOT_READ);
         recyclerView.setAdapter(testAdapter);
 
 
@@ -36,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (radioButtonID) {
 
                     case R.id.radioMassages:
-                        final ExpandableTestAdapter testAdapter = new ExpandableTestAdapter(EnumType.LISTMASSAGES, EnumType.LISTMASSAGES);
+                        final ExpandableTestAdapter testAdapter = new ExpandableTestAdapter(EnumType.LISTMASSAGES_NOT_READ, EnumType.LISTMASSAGES_NOT_READ);
                         recyclerView.setAdapter(testAdapter);
                         break;
 

@@ -1,6 +1,5 @@
 package com.frh.expandrecyclerview;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +32,13 @@ public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<Expand
 
     @Override
     public String getGroupItem(int position) {
-        return "group :" + position; }
+        return "group :" + position;
+    }
 
     @Override
     public String getChildItem(int group, int position) {
-        return DataListMassages.descriptionArray[group]; }
+        return DataListMassages.descriptionArray[group];
+    }
 
     @Override
     protected ExpandableRecyclerView.SimpleGroupViewHolder onCreateGroupViewHolder(ViewGroup parent) {
@@ -66,15 +67,22 @@ public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<Expand
             holder.setimageviewUser(DataType.drawableArray[group]);
             holder.settextviewGroupDescription(DataType.stateArray[group]);
             holder.settextviewGroupDate(DataType.dateArray[group]);
-            holder.settextviewGroupTime(DataType.timeArray[group]); }
-
-        if (type == EnumType.LISTMASSAGES) {
-            if (DataListMassages.type[group].equals(1)) {
-                holder.setEnum(EnumType.LISTMASSAGES);
-                holder.setTextviewGroupText(getGroupItem(group));
-                holder.setimageviewUser(DataListMassages.drawableArray[group]);
-                holder.settextviewGroupDescription(DataListMassages.stateArray[group]); }
+            holder.settextviewGroupTime(DataType.timeArray[group]);
         }
+
+        if (type == EnumType.LISTMASSAGES_NOT_READ) {
+            holder.setTextviewGroupText(DataListMassages.titleArray[group]);
+            holder.setimageviewUser(DataListMassages.drawableArray[group]);
+            holder.settextviewGroupDescription(DataListMassages.stateArray[group]);
+
+            if (DataListMassages.type[group].equals(1)) {
+                holder.setEnum(EnumType.LISTMASSAGES_NOT_READ);
+            }
+            else
+                holder.setEnum(EnumType.LISTMASSAGES_READ);
+
+        }
+
     }
 
     @Override
@@ -89,10 +97,12 @@ public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<Expand
             holder.textviewCunsultingStatusValue.setText(DataType.consultingArray[position]);
             holder.textviewDocoumentTimeValue.setText(DataType.docoumentTimeArray[position]);
             holder.textviewWriteTimeValue.setText(DataType.writeTimeArray[position]);
-            holder.textviewAudioTimeValue.setText(DataType.audioTimeArray[position]); }
+            holder.textviewAudioTimeValue.setText(DataType.audioTimeArray[position]);
+        }
 
-        if (type == EnumType.LISTMASSAGES) {
-            holder.textviewMassageDescription.setVisibility(View.VISIBLE); }
+        if (type == EnumType.LISTMASSAGES_NOT_READ) {
+            holder.textviewMassageDescription.setVisibility(View.VISIBLE);
+        }
     }
 
     public class ChildViewHolder extends RecyclerView.ViewHolder {

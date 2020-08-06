@@ -454,7 +454,7 @@ public class ExpandableRecyclerView extends RecyclerView {
         public void setEnum(EnumType type) {
 
             switch (type) {
-                case LISTMASSAGES:
+                case LISTMASSAGES_NOT_READ:
                     textviewGroupState.setVisibility(VISIBLE);
                     textviewGroupType.setVisibility(GONE);
                     textviewGroupState.setText("وضعیت مشاوره:");
@@ -464,6 +464,17 @@ public class ExpandableRecyclerView extends RecyclerView {
                     textviewGroupDate.setTextColor(Color.parseColor("#FFFFFF"));
                     textviewGroupTime.setTextColor(Color.parseColor("#FFFFFF"));
                     textviewGroupText.setTextColor(Color.parseColor("#FFFFFF"));
+                    break;
+
+
+                case LISTMASSAGES_READ:
+                    textviewGroupState.setVisibility(GONE);
+                    textviewGroupType.setVisibility(GONE);
+                    linearExpandable.setBackgroundResource(R.drawable.background_expand_item);
+                    textviewGroupDescription.setTextColor(Color.parseColor("#919194"));
+                    textviewGroupDate.setTextColor(Color.parseColor("#919194"));
+                    textviewGroupTime.setTextColor(Color.parseColor("#919194"));
+                    textviewGroupText.setTextColor(Color.parseColor("#000000"));
                     break;
 
                 case LISTTRANSACTION:
