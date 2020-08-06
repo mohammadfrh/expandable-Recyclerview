@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +22,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         final ExpandableTestAdapter testAdapter = new ExpandableTestAdapter(EnumType.LISTMASSAGES_NOT_READ, EnumType.LISTMASSAGES_NOT_READ);
         recyclerView.setAdapter(testAdapter);
+
+//        testAdapter.setOnGroupItemClickedListener(new ExpandableRecyclerView.OnGroupItemClickedListener() {
+//            @Override
+//            public void onGroupItemClicked(int group) {
+//                Toast.makeText(MainActivity.this, "group click", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

@@ -36,5 +36,51 @@ public class DataListMassages {
 
     public static Integer[] type = {1, 0, 0,1};
 
+    public static String[] getTitleArray() {
+        return titleArray;
+    }
 
+    public static void setTitleArray(String[] titleArray) {
+        DataListMassages.titleArray = titleArray;
+    }
+
+    public static String[] getStateArray() {
+        return stateArray;
+    }
+
+    public static void setStateArray(String[] stateArray) {
+        DataListMassages.stateArray = stateArray;
+    }
+
+    public static int[] getDrawableArray() {
+        return drawableArray;
+    }
+
+    public static void setDrawableArray(int[] drawableArray) {
+        DataListMassages.drawableArray = drawableArray;
+    }
+
+    public static String[] getDescriptionArray() {
+        return descriptionArray;
+    }
+
+    public static void setDescriptionArray(String[] descriptionArray) {
+        DataListMassages.descriptionArray = descriptionArray;
+    }
+
+    public static Integer[] getId() {
+        return id;
+    }
+
+    public static void setId(Integer[] id) {
+        DataListMassages.id = id;
+    }
+
+    public static Integer[] getType() {
+        return type;
+    }
+
+    public static void setType(Integer[] type) {
+        DataListMassages.type = type;
+    }
 }

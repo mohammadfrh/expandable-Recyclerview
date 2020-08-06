@@ -1,5 +1,6 @@
 package com.frh.expandrecyclerview;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<ExpandableTestAdapter.ChildViewHolder, ExpandableRecyclerView.SimpleGroupViewHolder, String, String> {
+public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<ExpandableTestAdapter.ChildViewHolder, ExpandableRecyclerView.SimpleGroupViewHolder, String, String> implements ExpandableRecyclerView.OnGroupItemClickedListener, ExpandableRecyclerView.OnChildItemClickedListener {
 
 
     EnumType type;
@@ -62,6 +63,23 @@ public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<Expand
         super.onBindGroupViewHolder(holder, group);
         holder.setEnum(enumType);
 
+        setdata(holder, group);
+
+    }
+
+
+    @Override
+    public void onBindChildViewHolder(ChildViewHolder holder, int group, final int position) {
+        super.onBindChildViewHolder(holder, group, position);
+        holder.textviewMassageDescription.setText(getChildItem(group, position));
+
+        setRowData(holder, position);
+        onChildItemClicked(group, position);
+
+    }
+
+    private void setdata(ExpandableRecyclerView.SimpleGroupViewHolder holder, int group) {
+
         if (type == EnumType.LISTTRANSACTION) {
             holder.setTextviewGroupText(DataType.titleArray[group]);
             holder.setimageviewUser(DataType.drawableArray[group]);
@@ -77,19 +95,13 @@ public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<Expand
 
             if (DataListMassages.type[group].equals(1)) {
                 holder.setEnum(EnumType.LISTMASSAGES_NOT_READ);
-            }
-            else
+            } else
                 holder.setEnum(EnumType.LISTMASSAGES_READ);
-
         }
-
     }
 
-    @Override
-    public void onBindChildViewHolder(ChildViewHolder holder, int group, final int position) {
-        super.onBindChildViewHolder(holder, group, position);
-        holder.textviewMassageDescription.setText(getChildItem(group, position));
 
+    private void setRowData(ChildViewHolder holder, final int position) {
         if (type == EnumType.LISTTRANSACTION) {
             holder.linearRowTransaction.setVisibility(View.VISIBLE);
             holder.textviewTrackingCodeValue.setText(DataType.trackingArray[position]);
@@ -103,6 +115,22 @@ public class ExpandableTestAdapter extends ExpandableRecyclerView.Adapter<Expand
         if (type == EnumType.LISTMASSAGES_NOT_READ) {
             holder.textviewMassageDescription.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onGroupItemClicked(int group) {
+        Log.e("Tag", "onGroupItemClicked: " + group);
+    }
+
+    @Override
+    public void onChildItemClicked(int group, int position) {
+
+        if (DataListMassages.type[group].equals(1)) {
+            Log.e("TAGg", "onGroupItemClicked: " + DataListMassages.getType()[position]);
+            DataListMassages.getType()[group] = 0;
+        }
+
+        Log.e("Tag", "onchikedItemClicked: " + group);
     }
 
     public class ChildViewHolder extends RecyclerView.ViewHolder {

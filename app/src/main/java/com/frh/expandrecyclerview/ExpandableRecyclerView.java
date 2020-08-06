@@ -139,6 +139,8 @@ public class ExpandableRecyclerView extends RecyclerView {
     public static abstract class Adapter<CVH extends ViewHolder, GVH extends ViewHolder, C, G> extends RecyclerView.Adapter<ViewHolder> {
 
         private OnChildItemClickedListener onChildItemClickedListener;
+        private OnGroupItemClickedListener onGroupItemClickedListener;
+
 
         private static final int TYPE_HEADER = 0;
 
@@ -296,6 +298,10 @@ public class ExpandableRecyclerView extends RecyclerView {
             this.onChildItemClickedListener = onItemClickedListener;
         }
 
+        public void setOnGroupItemClickedListener(OnGroupItemClickedListener onItemClickedListener) {
+            this.onGroupItemClickedListener = onItemClickedListener;
+        }
+
         public void onBindChildViewHolder(CVH holder, final int group, final int position) {
             holder.itemView.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
@@ -314,6 +320,10 @@ public class ExpandableRecyclerView extends RecyclerView {
             holder.itemView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (Adapter.this.onGroupItemClickedListener != null) {
+                        Adapter.this.onGroupItemClickedListener.onGroupItemClicked(group);
+                    }
+
                     if (isExpanded(group)) {
                         collapse(group);
                         if (holder instanceof GroupViewHolder)
@@ -324,6 +334,7 @@ public class ExpandableRecyclerView extends RecyclerView {
                             ((GroupViewHolder) holder).expand();
                     }
                 }
+
             });
         }
     }
@@ -377,7 +388,6 @@ public class ExpandableRecyclerView extends RecyclerView {
             textviewGroupState = itemView.findViewById(R.id.textview_group_state);
             imageviewUser = itemView.findViewById(R.id.imageview_user);
             textviewGroupType = itemView.findViewById(R.id.textview_group_type);
-
 
         }
 
@@ -501,5 +511,9 @@ public class ExpandableRecyclerView extends RecyclerView {
 
     public interface OnChildItemClickedListener {
         void onChildItemClicked(int group, int position);
+    }
+
+    public interface OnGroupItemClickedListener {
+        void onGroupItemClicked(int group);
     }
 }
