@@ -1,4 +1,4 @@
-package com.frh.expandrecyclerview;
+package com.frh.expandrecyclerview.View;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.frh.expandrecyclerview.R;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 

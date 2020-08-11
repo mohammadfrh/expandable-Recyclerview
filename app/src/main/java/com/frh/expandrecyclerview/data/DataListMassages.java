@@ -1,42 +1,29 @@
-package com.frh.expandrecyclerview;
+package com.frh.expandrecyclerview.data;
 
 
-public class DataType {
+import com.frh.expandrecyclerview.R;
+
+public class DataListMassages {
 
     public static String[] titleArray = {
-            "مشاوره یا ویرایش قرارداد",
-            "مشاوره یا ویرایش قرارداد",
-            "مشاوره یا ویرایش قرارداد",
-            "مشاوره یا ویرایش قرارداد"
+            "نگین آساده",
+            "لاوان",
+            "لاوان",
+            "نگین آساده"
     };
 
     public static String[] stateArray = {
-            "500000",
-            "500000",
-            "500000",
-            "500000"
+            "در حال انجام",
+            "هدیه به مناسبت روز زن",
+            "عید نوروز پیشاپیش مبارک",
+            "بسته شده"
     };
-
-    public static String[] dateArray = {
-            "1399/12/08",
-            "1399/12/08",
-            "1399/12/08",
-            "1399/12/08"
-    };
-
-    public static String[] timeArray = {
-            "18:18",
-            "18:18",
-            "18:18",
-            "18:18"
-    };
-
 
     public static int[] drawableArray = {
-            R.drawable.ic_icon_transaction,
-            R.drawable.ic_icon_transaction,
-            R.drawable.ic_icon_transaction,
-            R.drawable.ic_icon_transaction
+            R.drawable.ic_profile,
+            R.drawable.ic_lawone,
+            R.drawable.ic_lawone,
+            R.drawable.ic_profile
     };
 
     public static String[] descriptionArray = {
@@ -45,18 +32,57 @@ public class DataType {
             "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.",
             "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد."
     };
-    public  static String[] trackingArray={"8642"};
-    public  static String[] lawyersNameArray={"آرین قاسمی"};
-    public  static String[] consultingArray ={"در حال انجام.."};
-    public  static String[] docoumentTimeArray={"10 دقیقه"};
-    public  static String[] writeTimeArray={"50 دقیقه"};
-    public  static String[] audioTimeArray={"0 دقیقه"};
 
-
-   // public static Integer[] id = {1, 2, 3, 4, 5 ,6 ,7,8,9,10,11,12,13,14,15,16,17,18,19,20 ,21,22,23,24,25,26,27,28,29};
+    // public static Integer[] id = {1, 2, 3, 4, 5 ,6 ,7,8,9,10,11,12,13,14,15,16,17,18,19,20 ,21,22,23,24,25,26,27,28,29};
     public static Integer[] id = {0, 1, 2};
 
     public static Integer[] type = {1, 0, 0,1};
 
+    public static String[] getTitleArray() {
+        return titleArray;
+    }
 
+    public static void setTitleArray(String[] titleArray) {
+        DataListMassages.titleArray = titleArray;
+    }
+
+    public static String[] getStateArray() {
+        return stateArray;
+    }
+
+    public static void setStateArray(String[] stateArray) {
+        DataListMassages.stateArray = stateArray;
+    }
+
+    public static int[] getDrawableArray() {
+        return drawableArray;
+    }
+
+    public static void setDrawableArray(int[] drawableArray) {
+        DataListMassages.drawableArray = drawableArray;
+    }
+
+    public static String[] getDescriptionArray() {
+        return descriptionArray;
+    }
+
+    public static void setDescriptionArray(String[] descriptionArray) {
+        DataListMassages.descriptionArray = descriptionArray;
+    }
+
+    public static Integer[] getId() {
+        return id;
+    }
+
+    public static void setId(Integer[] id) {
+        DataListMassages.id = id;
+    }
+
+    public static Integer[] getType() {
+        return type;
+    }
+
+    public static void setType(Integer[] type) {
+        DataListMassages.type = type;
+    }
 }

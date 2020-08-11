@@ -1,12 +1,10 @@
-package com.frh.expandrecyclerview;
+package com.frh.expandrecyclerview.View;
 
 public enum EnumType {
 
     UNDEFINE("UNDEFINED", -1),
-
     LISTMASSAGES_NOT_READ("LISTMASSAGESNOTREAD" , 1),
     LISTMASSAGES_READ("LISTMASSAGESREAD" , 2),
-
     LISTTRANSACTION("TRANSACTION" , 3)
     ;
 
